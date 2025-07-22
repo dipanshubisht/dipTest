@@ -23,4 +23,4 @@ services:
       - "5173:5173"
     environment:
       - NODE_ENV=development
-    command: bun run dev
+    command: sh -c "bun install && bun run dev"
