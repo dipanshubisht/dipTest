@@ -9,16 +9,18 @@ services:
       - "4173:4173"
     environment:
       - NODE_ENV=production
-    command: bun run preview
 
   dev:
-    image: jarredsumner/bun:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: builder
     working_dir: /app
     volumes:
       - ./:/app
       - /app/node_modules
     ports:
-      - "4173:4173"
+      - "5173:5173"
     environment:
       - NODE_ENV=development
     command: bun run dev
