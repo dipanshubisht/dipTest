@@ -1,29 +1,24 @@
-# Use the official Bun image
+# --- Build Stage ---
 FROM jarredsumner/bun:latest AS builder
-
-# Set working directory
 WORKDIR /app
 
-# Copy package.json, bun.lockb and install dependencies
+# Install all dependencies
 COPY package.json bun.lockb ./
-RUN bun install --production
+RUN bun install
 
-# Copy the rest of the app and build
+# Copy source files and build
 COPY . .
 RUN bun run build
 
-# ----
-# Final stage: serve the built app
+# --- Run Stage ---
 FROM jarredsumner/bun:latest AS runner
 WORKDIR /app
 
-# Copy build output
+# Copy built assets
 COPY --from=builder /app/dist ./dist
 
-# Expose Vite's preview port
+# Expose Vite preview port
 EXPOSE 4173
 
-# Start the preview server
+# Serve the built app
 CMD ["bun", "run", "preview"]
-
-#renamed
