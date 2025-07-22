@@ -21,4 +21,4 @@ COPY --from=builder /app ./
 EXPOSE 4173
 
 # Serve the built app
-CMD ["bun", "run", "preview"]
+CMD ["bun", "run", "preview"] 
